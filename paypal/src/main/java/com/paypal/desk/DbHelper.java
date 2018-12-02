@@ -87,7 +87,7 @@ public class DbHelper {
      * @param amount   transaction amount
      */
     static void transaction(int userFrom, int userTo, double amount) {
-    int iii;
+
             if (!(isValidUserID(userFrom) & isValidUserID(userTo))) {
                 System.out.println("Bad user ID!!!");
                 return;
@@ -104,31 +104,32 @@ public class DbHelper {
                 userTo  +","+
                 amount+")";
 
-            String userFromText = "update users " +
-                "set balance = balance - "+
-                amount+
-                " where id = "+
-                userFrom;
-
-            String userToText = "update users " +
-                "set balance = balance + "+
-                amount+
-                " where id = "+
-                userTo;
+//            String userFromText = "update users " +
+//                "set balance = balance - "+
+//                amount+
+//                " where id = "+
+//                userFrom;
+//
+//            String userToText = "update users " +
+//                "set balance = balance + "+
+//                amount+
+//                " where id = "+
+//                userTo;
 
 
         try {
-            Statement statementTransactions = connection.createStatement();
+                Statement statementTransactions = connection.createStatement();
 
-            Statement statementUserFrom = connection.createStatement();
+    //            Statement statementUserFrom = connection.createStatement();
+    //
+    //            Statement statementUsersTo = connection.createStatement();
 
-            Statement statementUsersTo = connection.createStatement();
-
-            statementTransactions.execute(transact);
-
-            statementUserFrom.execute(userFromText);
-
-            statementUsersTo.execute(userToText);
+                statementTransactions.execute(transact);
+                cashFlow(userFrom,-amount);
+                cashFlow(userTo,amount);
+    //            statementUserFrom.execute(userFromText);
+    //
+    //            statementUsersTo.execute(userToText);
 
         }catch (SQLException e){
             e.printStackTrace();
